@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Search } from "lucide-react";
+import { Search, Sparkles } from "lucide-react";
 import { searchContent } from "@/lib/data-access";
 import { Input } from "@/components/ui/input";
 import { getCategoryLabel } from "@/lib/utils";
@@ -26,31 +26,36 @@ export function GlobalSearch() {
   return (
     <div className="relative mx-auto w-full max-w-2xl">
       <form onSubmit={handleSubmit}>
-        <div className="search-glow relative rounded-xl border border-border bg-card transition-all">
-          <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
+        <div className="search-luxury relative overflow-hidden">
+          <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
+            <Search className="h-5 w-5 text-muted-foreground" />
+          </div>
           <Input
             type="search"
-            placeholder="Tool AI mana yang harus saya gunakan? Cari verdict, repo, workflow..."
+            placeholder="Tool AI mana yang harus saya gunakan?"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onFocus={() => setFocused(true)}
             onBlur={() => setTimeout(() => setFocused(false), 200)}
-            className="h-14 border-0 bg-transparent pl-12 pr-4 text-base shadow-none focus-visible:ring-0"
+            className="h-14 border-0 bg-transparent pl-12 pr-12 text-base shadow-none focus-visible:ring-0"
           />
+          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4">
+            <Sparkles className="h-4 w-4 text-accent/60" />
+          </div>
         </div>
       </form>
 
       {focused && results.length > 0 && (
-        <div className="absolute top-full z-50 mt-2 w-full overflow-hidden rounded-xl border border-border bg-popover shadow-xl">
+        <div className="absolute top-full z-50 mt-3 w-full overflow-hidden rounded-xl border border-border bg-popover/95 shadow-2xl backdrop-blur-xl">
           {results.slice(0, 6).map((item) => (
             <Link
               key={`${item.category}-${item.slug}`}
               href={item.href}
-              className="flex flex-col gap-0.5 border-b border-border px-4 py-3 last:border-0 hover:bg-secondary/60"
+              className="flex flex-col gap-0.5 border-b border-border px-4 py-3.5 last:border-0 transition-colors hover:bg-accent/5"
             >
               <div className="flex items-center gap-2">
                 <span className="text-sm font-medium">{item.title}</span>
-                <span className="rounded bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">
+                <span className="rounded-full bg-accent/10 px-2 py-0.5 text-[10px] font-medium text-accent">
                   {getCategoryLabel(item.category)}
                 </span>
               </div>

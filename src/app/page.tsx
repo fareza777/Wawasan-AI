@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { AiVerdictCard } from "@/components/ai-verdict/ai-verdict-card";
-import { GlobalSearch } from "@/components/search/global-search";
+import { Hero } from "@/components/home/hero";
+import { StatsStrip } from "@/components/home/stats-strip";
 import { Newsletter } from "@/components/home/newsletter";
 import { RepoCard } from "@/components/repo/repo-card";
 import { ContentCard } from "@/components/shared/content-card";
 import { SectionHeader } from "@/components/shared/section-header";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   getLatestRepos,
@@ -15,11 +15,11 @@ import {
   getPopularWorkflows,
   getFeaturedStacks,
 } from "@/lib/data-access";
-import { SITE_CONFIG } from "@/lib/constants";
 
 export default function HomePage() {
   const latestRepos = getLatestRepos(4);
   const latestVerdicts = getLatestVerdicts(3);
+  const [featuredVerdict, ...otherVerdicts] = latestVerdicts;
   const popularWorkflows = getPopularWorkflows(6);
   const featuredStacks = getFeaturedStacks(4);
 
@@ -31,43 +31,32 @@ export default function HomePage() {
 
   return (
     <div>
-      {/* Hero - Perplexity editorial: search-first */}
-      <section className="border-b border-border bg-muted/20">
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
-          <div className="mx-auto max-w-3xl text-center">
-            <Badge variant="accent" className="mb-4">
-              Platform Keputusan AI Indonesia
-            </Badge>
-            <h1 className="text-3xl font-semibold tracking-tight text-balance sm:text-4xl md:text-5xl">
-              {SITE_CONFIG.name}
-            </h1>
-            <p className="mt-3 text-lg text-muted-foreground text-balance">
-              {SITE_CONFIG.tagline}
-            </p>
-            <p className="mt-2 text-sm text-muted-foreground">
-              Jawab dalam 30 detik: tool mana, repo mana, workflow mana, stack mana.
-            </p>
-          </div>
+      <Hero />
+      <StatsStrip />
 
-          <div className="mx-auto mt-10 max-w-2xl">
-            <GlobalSearch />
+      <div className="mx-auto max-w-7xl space-y-20 px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
+        {/* AI Verdict — featured + grid */}
+        <section>
+          <SectionHeader
+            title="AI Verdict Terbaru"
+            description="Keputusan tegas berbasis 5 kriteria — cocok atau tidak, tanpa basa-basi"
+            href="/verdict"
+            accent
+          />
+          {featuredVerdict && (
+            <div className="mb-5">
+              <AiVerdictCard verdict={featuredVerdict} variant="featured" />
+            </div>
+          )}
+          <div className="grid gap-4 md:grid-cols-2">
+            {otherVerdicts.map((verdict) => (
+              <AiVerdictCard key={verdict.slug} verdict={verdict} variant="compact" />
+            ))}
           </div>
+        </section>
 
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <Button variant="outline" size="sm" asChild>
-              <Link href="/verdict">Lihat AI Verdict</Link>
-            </Button>
-            <Button variant="outline" size="sm" asChild>
-              <Link href="/repo">Jelajahi Repo</Link>
-            </Button>
-            <Button variant="outline" size="sm" asChild>
-              <Link href="/stack">Pilih Stack</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
+        <div className="section-divider" />
 
-      <div className="mx-auto max-w-7xl space-y-16 px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
         {/* Repo Terbaru */}
         <section>
           <SectionHeader
@@ -82,32 +71,27 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* AI Verdict Terbaru */}
-        <section>
-          <SectionHeader
-            title="AI Verdict Terbaru"
-            description="Keputusan tegas: cocok atau tidak"
-            href="/verdict"
-          />
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {latestVerdicts.map((verdict) => (
-              <AiVerdictCard key={verdict.slug} verdict={verdict} variant="compact" />
-            ))}
-          </div>
-        </section>
+        <div className="section-divider" />
 
         {/* Workflow Populer */}
         <section>
           <SectionHeader
             title="Workflow Populer"
-            description="Template praktis untuk use case nyata"
+            description="Template praktis untuk use case nyata di Indonesia"
             href="/workflow"
+            accent
           />
           <Tabs defaultValue="umkm">
-            <TabsList className="mb-4">
-              <TabsTrigger value="umkm">UMKM & Bisnis</TabsTrigger>
-              <TabsTrigger value="pemerintah">Pemerintah & ASN</TabsTrigger>
-              <TabsTrigger value="content">Content & SEO</TabsTrigger>
+            <TabsList className="mb-6 h-auto flex-wrap gap-1 bg-muted/60 p-1">
+              <TabsTrigger value="umkm" className="rounded-lg px-4">
+                UMKM & Bisnis
+              </TabsTrigger>
+              <TabsTrigger value="pemerintah" className="rounded-lg px-4">
+                Pemerintah & ASN
+              </TabsTrigger>
+              <TabsTrigger value="content" className="rounded-lg px-4">
+                Content & SEO
+              </TabsTrigger>
             </TabsList>
             <TabsContent value="umkm">
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -141,39 +125,50 @@ export default function HomePage() {
           </Tabs>
         </section>
 
-        {/* AI Stack Pilihan */}
+        <div className="section-divider" />
+
+        {/* AI Stack — bento */}
         <section>
           <SectionHeader
             title="AI Stack Pilihan"
-            description="Kombinasi tool terbaik per kebutuhan"
+            description="Kombinasi tool terbaik per kebutuhan dengan estimasi biaya"
             href="/stack"
           />
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {featuredStacks.map((stack) => (
+            {featuredStacks.map((stack, i) => (
               <Link
                 key={stack.slug}
                 href={`/stack/${stack.slug}`}
-                className="group rounded-xl border border-border bg-card p-5 transition-all hover:border-accent/30 hover:shadow-md"
+                className={`premium-surface gradient-border group block overflow-hidden rounded-xl p-5 ${
+                  i === 0 ? "sm:col-span-2 lg:row-span-1" : ""
+                }`}
               >
-                <Badge variant="accent" className="mb-3">
-                  {stack.totalMonthlyCost}
-                </Badge>
-                <h3 className="font-semibold group-hover:text-accent transition-colors">
-                  {stack.title}
-                </h3>
-                <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">
-                  {stack.description}
-                </p>
-                <span className="mt-4 flex items-center gap-1 text-sm font-medium text-accent">
-                  Lihat stack
-                  <ArrowRight className="h-4 w-4" />
-                </span>
+                <div className={i === 0 ? "md:flex md:items-center md:justify-between md:gap-6" : ""}>
+                  <div>
+                    <Badge variant="accent" className="mb-3 border border-accent/15 bg-accent/10">
+                      {stack.totalMonthlyCost}
+                    </Badge>
+                    <h3
+                      className={`font-semibold tracking-tight transition-colors group-hover:text-accent ${
+                        i === 0 ? "text-xl md:text-2xl" : ""
+                      }`}
+                    >
+                      {stack.title}
+                    </h3>
+                    <p className="mt-2 line-clamp-2 text-sm text-muted-foreground leading-relaxed">
+                      {stack.description}
+                    </p>
+                  </div>
+                  <span className="mt-4 flex items-center gap-1 text-sm font-medium text-accent md:mt-0 md:shrink-0">
+                    Lihat stack
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                  </span>
+                </div>
               </Link>
             ))}
           </div>
         </section>
 
-        {/* Newsletter */}
         <Newsletter />
       </div>
     </div>

@@ -14,7 +14,7 @@ export function Navbar({ className, onNavigate }: NavbarProps) {
   const pathname = usePathname();
 
   return (
-    <nav className={cn("flex items-center gap-1", className)}>
+    <nav className={cn("flex items-center gap-0.5", className)}>
       {NAV_ITEMS.map((item) => {
         const isActive = pathname.startsWith(item.href);
         return (
@@ -23,10 +23,10 @@ export function Navbar({ className, onNavigate }: NavbarProps) {
             href={item.href}
             onClick={onNavigate}
             className={cn(
-              "rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
+              "rounded-lg px-3 py-1.5 text-sm font-medium transition-all",
               isActive
-                ? "bg-secondary text-foreground"
-                : "text-muted-foreground hover:bg-secondary/60 hover:text-foreground"
+                ? "bg-accent/10 text-accent"
+                : "text-muted-foreground hover:bg-muted/60 hover:text-foreground"
             )}
           >
             {item.label}

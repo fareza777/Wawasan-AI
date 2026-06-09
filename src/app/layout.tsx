@@ -33,9 +33,9 @@ export default function RootLayout({
   return (
     <html lang="id" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} font-sans`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <JsonLd data={[createWebsiteJsonLd(), createOrganizationJsonLd()]} />
-          <div className="flex min-h-[100dvh] flex-col">
+          <div className="ambient-bg flex min-h-[100dvh] flex-col">
             <Header />
             <main className="flex-1">{children}</main>
             <Footer />

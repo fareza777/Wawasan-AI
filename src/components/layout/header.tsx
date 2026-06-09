@@ -7,12 +7,13 @@ import { SITE_CONFIG } from "@/lib/constants";
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-border/60 bg-background/80 backdrop-blur-xl">
+    <header className="glass-nav sticky top-0 z-40 w-full">
       <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-6">
-          <Link href="/" className="flex items-center gap-2.5">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-              <span className="text-sm font-bold text-primary-foreground">W</span>
+          <Link href="/" className="group flex items-center gap-2.5">
+            <div className="relative flex h-8 w-8 items-center justify-center overflow-hidden rounded-lg bg-primary shadow-sm">
+              <div className="absolute inset-0 bg-gradient-to-br from-accent/30 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+              <span className="relative text-sm font-bold text-primary-foreground">W</span>
             </div>
             <div className="hidden sm:block">
               <span className="text-sm font-semibold tracking-tight">{SITE_CONFIG.name}</span>
@@ -21,7 +22,7 @@ export function Header() {
           <Navbar className="hidden md:flex" />
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5">
           <SearchTrigger />
           <ThemeToggle />
           <MobileNav />
