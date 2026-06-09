@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Logo } from "@/components/brand/logo";
 import { NAV_ITEMS, SITE_CONFIG } from "@/lib/constants";
 
 export function Footer() {
@@ -7,12 +8,7 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="grid gap-10 md:grid-cols-3">
           <div>
-            <div className="mb-4 flex items-center gap-2.5">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary shadow-sm">
-                <span className="text-sm font-bold text-primary-foreground">W</span>
-              </div>
-              <span className="font-semibold tracking-tight">{SITE_CONFIG.name}</span>
-            </div>
+            <Logo showWordmark className="mb-4" />
             <p className="max-w-xs text-sm text-muted-foreground leading-relaxed">
               {SITE_CONFIG.tagline}. Platform keputusan AI untuk Indonesia.
             </p>
@@ -35,10 +31,9 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="mb-4 text-sm font-semibold tracking-tight">Monetisasi</h3>
+            <h3 className="mb-4 text-sm font-semibold tracking-tight">Tentang</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Placeholder untuk affiliate links, sponsored verdicts, dan newsletter premium.
-              Analytics: Google Analytics / Plausible.
+              Kurasi independen tool, repo, workflow, dan stack AI untuk membantu Anda memutuskan lebih cepat.
             </p>
           </div>
         </div>
@@ -47,7 +42,7 @@ export function Footer() {
 
         <div className="flex flex-col items-center justify-between gap-2 text-xs text-muted-foreground sm:flex-row">
           <p>&copy; {new Date().getFullYear()} {SITE_CONFIG.name}</p>
-          <p>Diperbarui terus untuk akurasi keputusan AI Anda</p>
+          <p>Konten diperbarui berkala untuk akurasi keputusan</p>
         </div>
       </div>
     </footer>

@@ -23,7 +23,7 @@ export function createMetadata({
   updatedAt,
 }: PageSeoProps): Metadata {
   const url = `${SITE_CONFIG.url}${path}`;
-  const ogImage = image ?? `${SITE_CONFIG.url}/og-default.png`;
+  const ogImage = image ?? `${SITE_CONFIG.url}/og-default.svg`;
 
   return {
     title: `${title} | ${SITE_CONFIG.name}`,

@@ -1,5 +1,5 @@
+import { PageHeader } from "@/components/layout/page-header";
 import { ContentCard } from "@/components/shared/content-card";
-import { SectionHeader } from "@/components/shared/section-header";
 import { getAllWorkflows } from "@/lib/data-access";
 import { createMetadata } from "@/lib/seo";
 
@@ -15,9 +15,9 @@ export default function WorkflowListPage() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-      <SectionHeader
+      <PageHeader
         title="Workflow AI"
-        description="Langkah demi langkah — dari ide hingga implementasi nyata"
+        description="Langkah demi langkah dari ide hingga implementasi nyata di Indonesia."
       />
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {workflows.map((workflow) => (

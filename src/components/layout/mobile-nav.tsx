@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Menu } from "lucide-react";
+import { Logo } from "@/components/brand/logo";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Navbar } from "@/components/layout/navbar";
@@ -18,10 +19,8 @@ export function MobileNav() {
         </Button>
       </SheetTrigger>
       <SheetContent side="right" className="w-72">
-        <div className="mb-6 mt-2">
-          <p className="text-sm font-semibold">{SITE_CONFIG.name}</p>
-          <p className="text-xs text-muted-foreground">{SITE_CONFIG.tagline}</p>
-        </div>
+        <Logo showWordmark className="mb-1" />
+        <p className="mb-6 text-xs text-muted-foreground">{SITE_CONFIG.tagline}</p>
         <Navbar className="flex-col items-start gap-1" onNavigate={() => setOpen(false)} />
       </SheetContent>
     </Sheet>

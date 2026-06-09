@@ -1,5 +1,5 @@
-import { AiVerdictCard } from "@/components/ai-verdict/ai-verdict-card";
-import { SectionHeader } from "@/components/shared/section-header";
+import { PageHeader } from "@/components/layout/page-header";
+import { VerdictListClient } from "@/components/verdict/verdict-list-client";
 import { getAllVerdicts } from "@/lib/data-access";
 import { createMetadata } from "@/lib/seo";
 
@@ -15,15 +15,11 @@ export default function VerdictListPage() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-      <SectionHeader
+      <PageHeader
         title="AI Verdict"
-        description="Skor objektif berbasis 5 kriteria + rekomendasi akhir yang tegas"
+        description="Skor objektif berbasis 5 kriteria plus rekomendasi akhir yang tegas. Filter untuk menemukan tool yang cocok dengan Anda."
       />
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {verdicts.map((verdict) => (
-          <AiVerdictCard key={verdict.slug} verdict={verdict} variant="compact" />
-        ))}
-      </div>
+      <VerdictListClient verdicts={verdicts} />
     </div>
   );
 }

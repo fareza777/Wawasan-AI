@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Star, GitBranch, ArrowUpRight } from "lucide-react";
 import type { RepoContent } from "@/types/content";
-import { Badge } from "@/components/ui/badge";
+import { CategoryVisual } from "@/components/shared/category-visual";
 import { cn, formatDate } from "@/lib/utils";
 
 interface RepoCardProps {
@@ -13,21 +13,22 @@ export function RepoCard({ repo, className }: RepoCardProps) {
   return (
     <Link href={`/repo/${repo.slug}`} className={cn("group block", className)}>
       <div className="premium-surface gradient-border h-full overflow-hidden rounded-xl">
+        <CategoryVisual category="repo" size="sm" className="rounded-none rounded-t-xl" />
         <div className="p-5">
-          <div className="mb-3 flex items-center justify-between">
-            <Badge variant="muted" className="font-mono text-[10px] uppercase tracking-wider">
+          <div className="mb-2 flex items-center justify-between">
+            <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
               {repo.language}
-            </Badge>
-            <div className="flex items-center gap-1 text-xs font-medium text-muted-foreground">
-              <Star className="h-3.5 w-3.5 text-accent" />
+            </span>
+            <span className="flex items-center gap-1 text-xs font-medium text-accent">
+              <Star className="h-3 w-3" />
               {(repo.stars / 1000).toFixed(1)}k
-            </div>
+            </span>
           </div>
           <div className="flex items-start justify-between gap-2">
             <h3 className="font-semibold tracking-tight transition-colors group-hover:text-accent">
               {repo.title}
             </h3>
-            <ArrowUpRight className="h-4 w-4 shrink-0 text-muted-foreground opacity-0 transition-all group-hover:text-accent group-hover:opacity-100" />
+            <ArrowUpRight className="h-4 w-4 shrink-0 opacity-0 transition-opacity group-hover:opacity-100" />
           </div>
           <p className="mt-2 line-clamp-2 text-sm text-muted-foreground leading-relaxed">
             {repo.description}

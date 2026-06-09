@@ -1,5 +1,5 @@
+import { PageHeader } from "@/components/layout/page-header";
 import { RepoCard } from "@/components/repo/repo-card";
-import { SectionHeader } from "@/components/shared/section-header";
 import { getAllRepos } from "@/lib/data-access";
 import { createMetadata } from "@/lib/seo";
 
@@ -15,9 +15,9 @@ export default function RepoListPage() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-      <SectionHeader
+      <PageHeader
         title="Repo AI"
-        description="GitHub repository AI terkurasi dengan analisis praktis untuk developer Indonesia"
+        description="GitHub repository AI terkurasi dengan analisis praktis untuk developer Indonesia."
       />
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {repos.map((repo) => (

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Search, Sparkles } from "lucide-react";
+import { Search } from "lucide-react";
 import { searchContent } from "@/lib/data-access";
 import { Input } from "@/components/ui/input";
 import { getCategoryLabel } from "@/lib/utils";
@@ -27,9 +27,10 @@ export function GlobalSearch() {
     <div className="relative mx-auto w-full max-w-2xl">
       <form onSubmit={handleSubmit}>
         <div className="search-luxury relative overflow-hidden">
-          <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
-            <Search className="h-5 w-5 text-muted-foreground" />
-          </div>
+          <Search
+            className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground"
+            strokeWidth={1.5}
+          />
           <Input
             type="search"
             placeholder="Tool AI mana yang harus saya gunakan?"
@@ -37,11 +38,11 @@ export function GlobalSearch() {
             onChange={(e) => setQuery(e.target.value)}
             onFocus={() => setFocused(true)}
             onBlur={() => setTimeout(() => setFocused(false), 200)}
-            className="h-14 border-0 bg-transparent pl-12 pr-12 text-base shadow-none focus-visible:ring-0"
+            className="h-14 border-0 bg-transparent pl-12 pr-24 text-base shadow-none focus-visible:ring-0"
           />
-          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4">
-            <Sparkles className="h-4 w-4 text-accent/60" />
-          </div>
+          <kbd className="pointer-events-none absolute right-4 top-1/2 hidden -translate-y-1/2 rounded border border-border bg-muted/80 px-2 py-0.5 font-mono text-[10px] text-muted-foreground sm:inline-block">
+            Ctrl+K
+          </kbd>
         </div>
       </form>
 
