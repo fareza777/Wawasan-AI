@@ -3,7 +3,6 @@ import { ArrowRight, Check, X, Lightbulb } from "lucide-react";
 import type { VerdictContent } from "@/types/content";
 import { VerdictRadar } from "@/components/ai-verdict/verdict-radar";
 import { ScoreRing } from "@/components/ai-verdict/score-ring";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getVerdictLabel } from "@/lib/verdict-label";
 import { cn, formatDate } from "@/lib/utils";
 
@@ -70,12 +69,12 @@ export function AiVerdictCard({ verdict, variant = "compact", className }: AiVer
   }
 
   return (
-    <Card className={cn("overflow-hidden border-border shadow-lg", className)}>
-      <CardHeader className="border-b border-border bg-gradient-to-br from-accent/5 to-transparent">
+    <div className={cn("premium-surface overflow-hidden rounded-2xl", className)}>
+      <div className="border-b border-border bg-gradient-to-br from-accent/5 to-transparent p-6 md:p-8">
         <div className="flex flex-wrap items-start justify-between gap-6">
           <div>
             <p className={cn("text-sm font-semibold", `tone-${tone}`)}>{label}</p>
-            <CardTitle className="mt-2 text-2xl tracking-tighter md:text-3xl">{verdict.title}</CardTitle>
+            <h2 className="mt-2 text-2xl font-semibold tracking-tighter md:text-3xl">{verdict.title}</h2>
             <p className="mt-2 max-w-2xl text-muted-foreground leading-relaxed">
               {verdict.description}
             </p>
@@ -85,9 +84,9 @@ export function AiVerdictCard({ verdict, variant = "compact", className }: AiVer
             <p className="mt-2 text-xs text-muted-foreground">{verdict.pricing}</p>
           </div>
         </div>
-      </CardHeader>
+      </div>
 
-      <CardContent className="p-6 md:p-8">
+      <div className="p-6 md:p-8">
         <div className="grid gap-8 lg:grid-cols-2">
           <div className="rounded-xl border border-border bg-muted/20 p-5">
             <VerdictRadar criteria={verdict.criteria} />
@@ -122,8 +121,8 @@ export function AiVerdictCard({ verdict, variant = "compact", className }: AiVer
           <h4 className="mb-2 text-sm font-semibold text-accent">Rekomendasi Akhir</h4>
           <p className="text-sm leading-relaxed">{verdict.conclusion.rekomendasiAkhir}</p>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }
 

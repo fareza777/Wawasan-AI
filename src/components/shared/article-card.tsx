@@ -29,12 +29,16 @@ export function ArticleCard({ article, variant = "editorial", className }: Artic
   }
 
   return (
-    <Link
-      href={`/belajar-ai/${article.slug}`}
-      className={cn("group block", className)}
-    >
-      <article className="overflow-hidden rounded-xl border border-border bg-card transition-colors hover:border-accent/30">
-        <CategoryVisual category="article" size="sm" className="rounded-none rounded-t-xl" />
+    <Link href={`/belajar-ai/${article.slug}`} className={cn("group block", className)}>
+      <article className="premium-surface h-full overflow-hidden rounded-xl border border-border transition-colors hover:border-accent/30">
+        <CategoryVisual
+          category="article"
+          slug={article.slug}
+          title={article.title}
+          size="sm"
+          className="rounded-none rounded-t-xl"
+          showIcon={false}
+        />
         <div className="p-5">
           <div className="mb-3 flex items-center gap-2">
             <Badge variant="outline" className="capitalize text-[10px]">

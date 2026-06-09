@@ -1,3 +1,7 @@
+"use client";
+
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 import {
   BookOpen,
   GitBranch,
@@ -6,69 +10,80 @@ import {
   Workflow,
   type LucideIcon,
 } from "lucide-react";
+import { getItemVisualStyle, getMonogram, getVisualHue } from "@/lib/item-visual";
 import { cn } from "@/lib/utils";
 import type { ContentCategory } from "@/types/content";
 
-const CATEGORY_CONFIG: Record<
-  ContentCategory,
-  { icon: LucideIcon; gradient: string; iconColor: string }
-> = {
-  repo: {
-    icon: GitBranch,
-    gradient: "from-slate-800 via-slate-900 to-slate-950",
-    iconColor: "text-teal-400",
-  },
-  verdict: {
-    icon: Scale,
-    gradient: "from-teal-950 via-slate-900 to-slate-950",
-    iconColor: "text-teal-400",
-  },
-  workflow: {
-    icon: Workflow,
-    gradient: "from-indigo-950 via-slate-900 to-slate-950",
-    iconColor: "text-indigo-300",
-  },
-  stack: {
-    icon: Layers,
-    gradient: "from-cyan-950 via-slate-900 to-slate-950",
-    iconColor: "text-cyan-300",
-  },
-  article: {
-    icon: BookOpen,
-    gradient: "from-slate-800 via-slate-900 to-zinc-950",
-    iconColor: "text-slate-300",
-  },
+const CATEGORY_ICON: Record<ContentCategory, LucideIcon> = {
+  repo: GitBranch,
+  verdict: Scale,
+  workflow: Workflow,
+  stack: Layers,
+  article: BookOpen,
 };
 
 interface CategoryVisualProps {
   category: ContentCategory;
+  slug: string;
+  title: string;
   size?: "sm" | "md" | "lg";
   className?: string;
+  showIcon?: boolean;
 }
 
 const SIZE_MAP = {
-  sm: { box: "h-24 w-full", icon: "h-6 w-6", rounded: "rounded-lg" },
-  md: { box: "h-36 w-full", icon: "h-8 w-8", rounded: "rounded-xl" },
-  lg: { box: "h-28 w-28 md:h-32 md:w-32", icon: "h-10 w-10", rounded: "rounded-2xl" },
+  sm: { box: "h-24 w-full", mono: "text-xl", icon: "h-5 w-5", rounded: "rounded-lg" },
+  md: { box: "h-36 w-full", mono: "text-2xl", icon: "h-6 w-6", rounded: "rounded-xl" },
+  lg: { box: "h-28 w-28 md:h-32 md:w-32", mono: "text-3xl", icon: "h-7 w-7", rounded: "rounded-2xl" },
 };
 
-export function CategoryVisual({ category, size = "md", className }: CategoryVisualProps) {
-  const config = CATEGORY_CONFIG[category];
-  const Icon = config.icon;
+export function CategoryVisual({
+  category,
+  slug,
+  title,
+  size = "md",
+  className,
+  showIcon = true,
+}: CategoryVisualProps) {
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
+
+  const hue = getVisualHue(slug, category);
+  const monogram = getMonogram(title);
+  const mode = mounted && resolvedTheme === "light" ? "light" : "dark";
+  const visual = getItemVisualStyle(hue, mode);
+  const Icon = CATEGORY_ICON[category];
   const s = SIZE_MAP[size];
 
   return (
     <div
       className={cn(
-        "relative flex items-center justify-center overflow-hidden bg-gradient-to-br",
-        config.gradient,
+        "relative flex items-center justify-center overflow-hidden border border-border/40",
         s.box,
         s.rounded,
         className
       )}
+      style={{ background: visual.background }}
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgb(20_184_166/0.15),transparent_55%)]" />
-      <Icon className={cn("relative", config.iconColor, s.icon)} strokeWidth={1.5} />
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background: `radial-gradient(circle at 28% 22%, ${visual.glow}, transparent 58%)`,
+        }}
+      />
+      <div className="relative flex flex-col items-center gap-1">
+        <span
+          className={cn("font-semibold tracking-tighter", s.mono)}
+          style={{ color: visual.monogramColor }}
+        >
+          {monogram}
+        </span>
+        {showIcon && size !== "sm" && (
+          <Icon className={cn(s.icon, "opacity-40")} style={{ color: visual.monogramColor }} strokeWidth={1.5} />
+        )}
+      </div>
     </div>
   );
 }

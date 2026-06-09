@@ -19,11 +19,17 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = createMetadata({
-  title: SITE_CONFIG.name,
-  description: SITE_CONFIG.description,
-  path: "/",
-});
+export const metadata: Metadata = {
+  ...createMetadata({
+    title: SITE_CONFIG.name,
+    description: SITE_CONFIG.description,
+    path: "/",
+  }),
+  icons: {
+    icon: "/favicon.svg",
+    apple: "/favicon.svg",
+  },
+};
 
 export default function RootLayout({
   children,

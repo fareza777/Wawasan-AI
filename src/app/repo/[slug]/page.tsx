@@ -1,8 +1,10 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ExternalLink, Star, GitBranch } from "lucide-react";
+import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { DetailHero } from "@/components/layout/detail-hero";
 import { RelatedContent } from "@/components/shared/related-content";
+import { TagList } from "@/components/shared/tag-list";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { getAllRepos, getRepoBySlug } from "@/lib/data-access";
@@ -40,8 +42,17 @@ export default async function RepoDetailPage({ params }: PageProps) {
     <article className="mx-auto max-w-4xl px-4 py-10 sm:px-6 lg:px-8">
       <JsonLd data={createContentJsonLd(repo)} />
 
+      <Breadcrumbs
+        items={[
+          { label: "Beranda", href: "/" },
+          { label: "Repo AI", href: "/repo" },
+          { label: repo.title },
+        ]}
+      />
+
       <DetailHero
         category="repo"
+        slug={repo.slug}
         title={repo.title}
         description={repo.description}
         updatedAt={repo.updatedAt}
@@ -62,9 +73,7 @@ export default async function RepoDetailPage({ params }: PageProps) {
             <Badge variant="muted">{repo.language}</Badge>
             <Badge variant="outline">{repo.license}</Badge>
             <Badge variant="outline" className="capitalize">{repo.difficulty}</Badge>
-            {repo.tags.map((tag) => (
-              <Badge key={tag} variant="secondary">{tag}</Badge>
-            ))}
+            <TagList tags={repo.tags} />
           </>
         }
       />

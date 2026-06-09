@@ -30,7 +30,14 @@ export default function StackListPage() {
             className="premium-surface gradient-border group overflow-hidden rounded-xl"
           >
             <div className="grid sm:grid-cols-[140px_1fr]">
-              <CategoryVisual category="stack" size="sm" className="h-full min-h-[120px] rounded-none sm:min-h-0" />
+              <CategoryVisual
+                category="stack"
+                slug={stack.slug}
+                title={stack.title}
+                size="sm"
+                className="h-full min-h-[120px] rounded-none sm:min-h-0"
+                showIcon={false}
+              />
               <div className="p-5">
                 <div className="mb-2 flex items-center justify-between gap-2">
                   <Badge variant="accent" className="border-0 bg-accent/10">

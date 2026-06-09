@@ -13,7 +13,14 @@ export function RepoCard({ repo, className }: RepoCardProps) {
   return (
     <Link href={`/repo/${repo.slug}`} className={cn("group block", className)}>
       <div className="premium-surface gradient-border h-full overflow-hidden rounded-xl">
-        <CategoryVisual category="repo" size="sm" className="rounded-none rounded-t-xl" />
+        <CategoryVisual
+          category="repo"
+          slug={repo.slug}
+          title={repo.title}
+          size="sm"
+          className="rounded-none rounded-t-xl"
+          showIcon={false}
+        />
         <div className="p-5">
           <div className="mb-2 flex items-center justify-between">
             <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">

@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { DetailHero } from "@/components/layout/detail-hero";
 import { RelatedContent } from "@/components/shared/related-content";
 import { Badge } from "@/components/ui/badge";
@@ -37,15 +38,22 @@ export default async function StackDetailPage({ params }: PageProps) {
     <article className="mx-auto max-w-4xl px-4 py-10 sm:px-6 lg:px-8">
       <JsonLd data={createContentJsonLd(stack)} />
 
+      <Breadcrumbs
+        items={[
+          { label: "Beranda", href: "/" },
+          { label: "AI Stack", href: "/stack" },
+          { label: stack.title },
+        ]}
+      />
+
       <DetailHero
         category="stack"
+        slug={stack.slug}
         title={stack.title}
         description={stack.description}
         updatedAt={stack.updatedAt}
         meta={<span className="font-medium text-accent">{stack.totalMonthlyCost}/bulan</span>}
-        badge={
-          <Badge variant="outline" className="capitalize">{stack.difficulty}</Badge>
-        }
+        badge={<Badge variant="outline" className="capitalize">{stack.difficulty}</Badge>}
       />
 
       <div className="mb-8 rounded-2xl border border-accent/25 bg-accent/5 p-6">
@@ -57,10 +65,7 @@ export default async function StackDetailPage({ params }: PageProps) {
         <h2 className="mb-4 text-lg font-semibold tracking-tight">Komponen Stack</h2>
         <div className="grid gap-3 sm:grid-cols-2">
           {stack.tools.map((tool) => (
-            <div
-              key={tool.name}
-              className="rounded-xl border border-border bg-card p-4"
-            >
+            <div key={tool.name} className="rounded-xl border border-border bg-card p-4">
               <div className="flex items-start justify-between gap-2">
                 <h3 className="font-semibold tracking-tight">{tool.name}</h3>
                 <span className="shrink-0 text-sm font-medium text-accent">{tool.cost}</span>

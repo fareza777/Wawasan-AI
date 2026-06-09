@@ -1,7 +1,9 @@
 import { notFound } from "next/navigation";
 import { Clock, Wrench } from "lucide-react";
+import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { DetailHero } from "@/components/layout/detail-hero";
 import { RelatedContent } from "@/components/shared/related-content";
+import { TagList } from "@/components/shared/tag-list";
 import { Badge } from "@/components/ui/badge";
 import { getAllWorkflows, getWorkflowBySlug } from "@/lib/data-access";
 import { createContentJsonLd, createMetadata } from "@/lib/seo";
@@ -38,8 +40,17 @@ export default async function WorkflowDetailPage({ params }: PageProps) {
     <article className="mx-auto max-w-4xl px-4 py-10 sm:px-6 lg:px-8">
       <JsonLd data={createContentJsonLd(workflow)} />
 
+      <Breadcrumbs
+        items={[
+          { label: "Beranda", href: "/" },
+          { label: "Workflow", href: "/workflow" },
+          { label: workflow.title },
+        ]}
+      />
+
       <DetailHero
         category="workflow"
+        slug={workflow.slug}
         title={workflow.title}
         description={workflow.description}
         updatedAt={workflow.updatedAt}
@@ -57,10 +68,8 @@ export default async function WorkflowDetailPage({ params }: PageProps) {
         }
         badge={
           <>
-            {workflow.tags.map((tag) => (
-              <Badge key={tag} variant="secondary">{tag}</Badge>
-            ))}
             <Badge variant="outline" className="capitalize">{workflow.difficulty}</Badge>
+            <TagList tags={workflow.tags} />
           </>
         }
       />

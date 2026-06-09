@@ -6,6 +6,7 @@ import { RepoScroll } from "@/components/home/repo-scroll";
 import { StatsStrip } from "@/components/home/stats-strip";
 import { Newsletter } from "@/components/home/newsletter";
 import { ArticleCard } from "@/components/shared/article-card";
+import { CategoryVisual } from "@/components/shared/category-visual";
 import { ContentCard } from "@/components/shared/content-card";
 import { SectionHeader } from "@/components/shared/section-header";
 import { Badge } from "@/components/ui/badge";
@@ -61,7 +62,7 @@ export default function HomePage() {
         <section>
           <SectionHeader
             title="Repo AI Trending"
-            description="Geser untuk eksplorasi — kurasi minggu ini"
+            description="Geser untuk eksplorasi kurasi minggu ini"
             href="/repo"
           />
           <RepoScroll repos={latestRepos} />
@@ -99,38 +100,58 @@ export default function HomePage() {
             {heroStack && (
               <Link
                 href={`/stack/${heroStack.slug}`}
-                className="premium-surface gradient-border group col-span-2 row-span-2 flex flex-col justify-between overflow-hidden rounded-2xl p-6 md:p-8"
+                className="premium-surface gradient-border group relative col-span-2 row-span-2 overflow-hidden rounded-2xl"
               >
-                <div>
-                  <Badge variant="accent" className="mb-4 border-0 bg-accent/10">
-                    {heroStack.totalMonthlyCost}
-                  </Badge>
-                  <h3 className="text-2xl font-semibold tracking-tighter transition-colors group-hover:text-accent md:text-3xl">
-                    {heroStack.title}
-                  </h3>
-                  <p className="mt-3 max-w-md text-muted-foreground leading-relaxed">
-                    {heroStack.description}
-                  </p>
+                <CategoryVisual
+                  category="stack"
+                  slug={heroStack.slug}
+                  title={heroStack.title}
+                  size="md"
+                  className="absolute inset-0 h-full w-full rounded-2xl opacity-30"
+                  showIcon={false}
+                />
+                <div className="relative flex h-full min-h-[280px] flex-col justify-between p-6 md:p-8">
+                  <div>
+                    <Badge variant="accent" className="mb-4 border-0 bg-accent/10">
+                      {heroStack.totalMonthlyCost}
+                    </Badge>
+                    <h3 className="text-2xl font-semibold tracking-tighter transition-colors group-hover:text-accent md:text-3xl">
+                      {heroStack.title}
+                    </h3>
+                    <p className="mt-3 max-w-md text-muted-foreground leading-relaxed">
+                      {heroStack.description}
+                    </p>
+                  </div>
+                  <span className="mt-6 flex items-center gap-1 text-sm font-medium text-accent">
+                    Lihat stack
+                    <ArrowRight className="h-4 w-4" />
+                  </span>
                 </div>
-                <span className="mt-6 flex items-center gap-1 text-sm font-medium text-accent">
-                  Lihat stack
-                  <ArrowRight className="h-4 w-4" />
-                </span>
               </Link>
             )}
             {otherStacks.map((stack) => (
               <Link
                 key={stack.slug}
                 href={`/stack/${stack.slug}`}
-                className="premium-surface gradient-border group rounded-xl p-5"
+                className="premium-surface gradient-border group overflow-hidden rounded-xl"
               >
-                <Badge variant="outline" className="mb-2 text-[10px]">
-                  {stack.totalMonthlyCost}
-                </Badge>
-                <h3 className="font-semibold tracking-tight transition-colors group-hover:text-accent">
-                  {stack.title}
-                </h3>
-                <p className="mt-1 line-clamp-2 text-xs text-muted-foreground">{stack.bestFor}</p>
+                <CategoryVisual
+                  category="stack"
+                  slug={stack.slug}
+                  title={stack.title}
+                  size="sm"
+                  className="rounded-none rounded-t-xl"
+                  showIcon={false}
+                />
+                <div className="p-4">
+                  <Badge variant="outline" className="mb-2 text-[10px]">
+                    {stack.totalMonthlyCost}
+                  </Badge>
+                  <h3 className="font-semibold tracking-tight transition-colors group-hover:text-accent">
+                    {stack.title}
+                  </h3>
+                  <p className="mt-1 line-clamp-2 text-xs text-muted-foreground">{stack.bestFor}</p>
+                </div>
               </Link>
             ))}
           </div>

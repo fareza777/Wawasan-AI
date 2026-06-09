@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { AiVerdictCard } from "@/components/ai-verdict/ai-verdict-card";
+import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { RelatedContent } from "@/components/shared/related-content";
 import { DecisionBar } from "@/components/verdict/decision-bar";
 import { getAllVerdicts, getVerdictBySlug } from "@/lib/data-access";
@@ -36,6 +37,15 @@ export default async function VerdictDetailPage({ params }: PageProps) {
   return (
     <article className="mx-auto max-w-5xl px-4 py-10 pb-24 sm:px-6 md:pb-10 lg:px-8">
       <JsonLd data={createContentJsonLd(verdict)} />
+
+      <Breadcrumbs
+        items={[
+          { label: "Beranda", href: "/" },
+          { label: "AI Verdict", href: "/verdict" },
+          { label: verdict.title },
+        ]}
+      />
+
       <AiVerdictCard verdict={verdict} variant="full" />
       <RelatedContent slugs={verdict.relatedContent} />
       <DecisionBar score={verdict.verdictScore} title={verdict.title} href="#rekomendasi" />

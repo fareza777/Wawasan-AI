@@ -16,7 +16,14 @@ export function ContentCard({ item, className }: ContentCardProps) {
   return (
     <Link href={href} className={cn("group block", className)}>
       <div className="premium-surface gradient-border h-full overflow-hidden rounded-xl">
-        <CategoryVisual category={item.category} size="sm" className="rounded-none rounded-t-xl" />
+        <CategoryVisual
+          category={item.category}
+          slug={item.slug}
+          title={item.title}
+          size="sm"
+          className="rounded-none rounded-t-xl"
+          showIcon={false}
+        />
         <div className="p-5">
           <div className="mb-2 flex items-start justify-between gap-2">
             <div className="flex flex-wrap gap-1.5">

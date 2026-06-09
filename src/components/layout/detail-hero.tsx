@@ -4,6 +4,7 @@ import { CategoryVisual } from "@/components/shared/category-visual";
 
 interface DetailHeroProps {
   category: ContentCategory;
+  slug: string;
   title: string;
   description: string;
   updatedAt: string;
@@ -13,6 +14,7 @@ interface DetailHeroProps {
 
 export function DetailHero({
   category,
+  slug,
   title,
   description,
   updatedAt,
@@ -23,7 +25,13 @@ export function DetailHero({
     <header className="relative mb-10 overflow-hidden rounded-2xl border border-border bg-card">
       <div className="absolute inset-0 hero-mesh opacity-80" />
       <div className="relative grid gap-6 p-6 md:grid-cols-[auto_1fr] md:items-start md:p-8">
-        <CategoryVisual category={category} size="lg" className="shrink-0" />
+        <CategoryVisual
+          category={category}
+          slug={slug}
+          title={title}
+          size="lg"
+          className="shrink-0"
+        />
         <div>
           <p className="text-xs font-medium text-accent">{getCategoryLabel(category)}</p>
           {badge && <div className="mt-3 flex flex-wrap gap-2">{badge}</div>}

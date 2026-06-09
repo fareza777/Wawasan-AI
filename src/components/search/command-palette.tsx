@@ -54,6 +54,9 @@ export function CommandPalette() {
 
   return (
     <CommandDialog open={open} onOpenChange={setOpen}>
+      <div className="border-b border-border px-3 py-2 text-xs text-muted-foreground">
+        Pencarian cepat — ketik nama tool, repo, atau workflow
+      </div>
       <CommandInput
         placeholder="Cari tool, repo, workflow, stack..."
         value={query}
