@@ -1,7 +1,7 @@
 "use client";
 
 import type { VerdictCriteria } from "@/types/content";
-import { VERDICT_CRITERIA_LABELS } from "@/lib/constants";
+import { VERDICT_CRITERIA_LABELS, VERDICT_CRITERIA_SHORT } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
 interface VerdictRadarProps {
@@ -24,9 +24,8 @@ export function VerdictRadar({ criteria, className }: VerdictRadarProps) {
       key,
       x: center + r * Math.cos(angle),
       y: center + r * Math.sin(angle),
-      labelX: center + (maxRadius + 28) * Math.cos(angle),
-      labelY: center + (maxRadius + 28) * Math.sin(angle),
-      angle,
+      labelX: center + (maxRadius + 22) * Math.cos(angle),
+      labelY: center + (maxRadius + 22) * Math.sin(angle),
     };
   });
 
@@ -34,7 +33,12 @@ export function VerdictRadar({ criteria, className }: VerdictRadarProps) {
 
   return (
     <div className={cn("w-full", className)}>
-      <svg viewBox="0 0 240 240" className="mx-auto h-auto w-full max-w-[240px]" aria-hidden>
+      <svg
+        viewBox="0 0 240 240"
+        className="mx-auto h-auto w-full max-w-[240px] text-muted-foreground"
+        role="img"
+        aria-label="Radar skor verdict AI"
+      >
         {[0.25, 0.5, 0.75, 1].map((level) => (
           <polygon
             key={level}
@@ -68,15 +72,36 @@ export function VerdictRadar({ criteria, className }: VerdictRadarProps) {
 
         <polygon
           points={polygonPoints}
-          fill="rgb(20 184 166 / 0.2)"
-          stroke="rgb(20 184 166)"
+          fill="rgb(var(--accent-rgb) / 0.2)"
+          stroke="rgb(var(--accent-rgb))"
           strokeWidth={2}
         />
 
         {points.map((p) => (
-          <circle key={p.key} cx={p.x} cy={p.y} r={3} fill="rgb(20 184 166)" />
+          <circle key={p.key} cx={p.x} cy={p.y} r={3} fill="rgb(var(--accent-rgb))" />
+        ))}
+
+        {points.map((p) => (
+          <g key={`label-${p.key}`}>
+            <title>{VERDICT_CRITERIA_LABELS[p.key]}</title>
+            <text
+              x={p.labelX}
+              y={p.labelY}
+              textAnchor="middle"
+              dominantBaseline="middle"
+              fill="currentColor"
+              className="text-[11px] font-semibold"
+              style={{ fontSize: 11 }}
+            >
+              {VERDICT_CRITERIA_SHORT[p.key]}
+            </text>
+          </g>
         ))}
       </svg>
+
+      <p className="mt-2 text-center text-[10px] text-muted-foreground">
+        K · Kemudahan · B · Biaya · M · Manfaat · S · Stabilitas · P · Pemula
+      </p>
 
       <div className="mt-4 space-y-2.5">
         {CRITERIA_KEYS.map((key) => (

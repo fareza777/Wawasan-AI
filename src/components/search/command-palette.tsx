@@ -12,6 +12,7 @@ import {
   CommandSeparator,
 } from "@/components/ui/command";
 import { searchContent } from "@/lib/data-access";
+import { Badge } from "@/components/ui/badge";
 import { getCategoryLabel } from "@/lib/utils";
 import type { SearchResult } from "@/types/content";
 
@@ -54,8 +55,13 @@ export function CommandPalette() {
 
   return (
     <CommandDialog open={open} onOpenChange={setOpen}>
-      <div className="border-b border-border px-3 py-2 text-xs text-muted-foreground">
-        Pencarian cepat — ketik nama tool, repo, atau workflow
+      <div className="flex items-center justify-between border-b border-border/80 bg-muted/20 px-4 py-2.5">
+        <span className="text-xs text-muted-foreground">
+          Pencarian cepat
+        </span>
+        <kbd className="hidden rounded border border-border bg-card px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground sm:inline">
+          Ctrl+K
+        </kbd>
       </div>
       <CommandInput
         placeholder="Cari tool, repo, workflow, stack..."
@@ -74,9 +80,12 @@ export function CommandPalette() {
                   value={`${item.title} ${item.description}`}
                   onSelect={() => handleSelect(item.href)}
                 >
-                  <div className="flex flex-col gap-0.5">
-                    <span className="font-medium">{item.title}</span>
-                    <span className="text-xs text-muted-foreground line-clamp-1">
+                  <Badge variant="outline" className="shrink-0 text-[9px] uppercase tracking-wide">
+                    {getCategoryLabel(item.category).split(" ")[0]}
+                  </Badge>
+                  <div className="min-w-0 flex flex-col gap-0.5">
+                    <span className="truncate font-medium">{item.title}</span>
+                    <span className="truncate text-xs text-muted-foreground">
                       {item.description}
                     </span>
                   </div>

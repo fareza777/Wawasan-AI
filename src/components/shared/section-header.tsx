@@ -20,7 +20,7 @@ export function SectionHeader({
   return (
     <div className={cn("mb-8 flex items-end justify-between gap-4", className)}>
       <div>
-        <h2 className="text-2xl font-semibold tracking-tighter md:text-3xl">{title}</h2>
+        <h2 className="heading-display text-2xl md:text-3xl">{title}</h2>
         {description && (
           <p className="mt-1.5 max-w-lg text-sm text-muted-foreground leading-relaxed">
             {description}

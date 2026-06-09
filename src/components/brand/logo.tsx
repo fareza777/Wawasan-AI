@@ -21,10 +21,27 @@ export function Logo({ className, showWordmark = false, size = "md" }: LogoProps
       >
         <rect width="36" height="36" rx="10" className="fill-primary" />
         <path
-          d="M10 24V12h4.2l3.4 7.2L21 12h4.2v12h-3.2v-7.1L18.4 24h-2.8l-3.6-7.1V24H10z"
+          d="M18 10c-4.4 0-8 3.1-8 7.5 0 2.2 1 4.2 2.6 5.5-.8 1.2-1.3 2.6-1.3 4 0 3.9 3.1 7 7 7s7-3.1 7-7c0-1.4-.5-2.8-1.3-4 1.6-1.3 2.6-3.3 2.6-5.5C26 13.1 22.4 10 18 10Z"
           className="fill-primary-foreground"
+          opacity={0.12}
         />
-        <circle cx="27" cy="9" r="3" className="fill-accent" />
+        <ellipse
+          cx="18"
+          cy="17.5"
+          rx="5.5"
+          ry="4"
+          className="stroke-primary-foreground"
+          strokeWidth="1.5"
+          fill="none"
+        />
+        <circle cx="18" cy="17.5" r="2.2" className="fill-accent" />
+        <path
+          d="M11 12.5c2-2.5 4.5-3.5 7-3.5M25 12.5c-2-2.5-4.5-3.5-7-3.5"
+          className="stroke-accent"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          opacity={0.85}
+        />
       </svg>
       {showWordmark && (
         <span className="text-sm font-semibold tracking-tight">Wawasan AI</span>

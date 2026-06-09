@@ -35,10 +35,10 @@ export function DetailHero({
         <div>
           <p className="text-xs font-medium text-accent">{getCategoryLabel(category)}</p>
           {badge && <div className="mt-3 flex flex-wrap gap-2">{badge}</div>}
-          <h1 className="mt-3 text-3xl font-semibold tracking-tighter text-balance md:text-4xl lg:text-5xl">
+          <h1 className="heading-display mt-3 text-3xl text-balance md:text-4xl lg:text-5xl">
             {title}
           </h1>
-          <p className="mt-4 max-w-2xl text-lg text-muted-foreground leading-relaxed">
+          <p className="text-lead mt-4 max-w-2xl text-lg text-muted-foreground">
             {description}
           </p>
           <div className="mt-5 flex flex-wrap items-center gap-4 text-sm text-muted-foreground">

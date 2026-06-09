@@ -24,3 +24,11 @@ export const VERDICT_CRITERIA_LABELS = {
   stabilitas: "Stabilitas",
   cocokUntukPemula: "Cocok untuk Pemula",
 } as const;
+
+export const VERDICT_CRITERIA_SHORT = {
+  kemudahanPenggunaan: "K",
+  biaya: "B",
+  manfaatPraktis: "M",
+  stabilitas: "S",
+  cocokUntukPemula: "P",
+} as const;

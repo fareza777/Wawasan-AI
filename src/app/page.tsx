@@ -7,10 +7,9 @@ import { StatsStrip } from "@/components/home/stats-strip";
 import { Newsletter } from "@/components/home/newsletter";
 import { ArticleCard } from "@/components/shared/article-card";
 import { CategoryVisual } from "@/components/shared/category-visual";
-import { ContentCard } from "@/components/shared/content-card";
+import { WorkflowShowcase } from "@/components/home/workflow-showcase";
 import { SectionHeader } from "@/components/shared/section-header";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   getLatestRepos,
   getLatestVerdicts,
@@ -27,12 +26,6 @@ export default function HomePage() {
   const featuredStacks = getFeaturedStacks(4);
   const featuredArticles = getFeaturedArticles(2);
 
-  const workflowTabs = {
-    umkm: popularWorkflows.filter((w) => w.tags.includes("umkm") || w.tags.includes("bisnis")),
-    pemerintah: popularWorkflows.filter((w) => w.tags.includes("asn") || w.tags.includes("pemerintah")),
-    content: popularWorkflows.filter((w) => w.tags.includes("content") || w.tags.includes("seo")),
-  };
-
   const [heroStack, ...otherStacks] = featuredStacks;
 
   return (
@@ -41,7 +34,7 @@ export default function HomePage() {
       <StatsStrip />
 
       <div className="mx-auto max-w-7xl space-y-20 px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
-        <section>
+        <section className="animate-rise-delay-1">
           <SectionHeader
             title="AI Verdict Terbaru"
             description="Keputusan tegas dalam 30 detik"
@@ -59,7 +52,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section>
+        <section className="animate-rise-delay-2">
           <SectionHeader
             title="Repo AI Trending"
             description="Geser untuk eksplorasi kurasi minggu ini"
@@ -68,33 +61,16 @@ export default function HomePage() {
           <RepoScroll repos={latestRepos} />
         </section>
 
-        <section>
+        <section className="animate-rise-delay-3">
           <SectionHeader
             title="Workflow Populer"
-            description="Langkah praktis per use case"
+            description="Deep dive satu use case + ringkasan cepat"
             href="/workflow"
           />
-          <Tabs defaultValue="umkm">
-            <TabsList className="mb-6 h-auto flex-wrap gap-1 bg-muted/60 p-1">
-              <TabsTrigger value="umkm" className="rounded-lg px-4">UMKM</TabsTrigger>
-              <TabsTrigger value="pemerintah" className="rounded-lg px-4">ASN</TabsTrigger>
-              <TabsTrigger value="content" className="rounded-lg px-4">Content</TabsTrigger>
-            </TabsList>
-            {(["umkm", "pemerintah", "content"] as const).map((tab) => (
-              <TabsContent key={tab} value={tab}>
-                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  {(workflowTabs[tab].length > 0 ? workflowTabs[tab] : popularWorkflows.slice(0, 3)).map(
-                    (item) => (
-                      <ContentCard key={item.slug} item={item} />
-                    )
-                  )}
-                </div>
-              </TabsContent>
-            ))}
-          </Tabs>
+          <WorkflowShowcase workflows={popularWorkflows} />
         </section>
 
-        <section>
+        <section className="animate-rise-delay-4">
           <SectionHeader title="AI Stack Pilihan" href="/stack" />
           <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:grid-rows-2">
             {heroStack && (
@@ -157,7 +133,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section>
+        <section className="animate-rise-delay-5">
           <SectionHeader title="Belajar AI" description="Fondasi sebelum memutuskan" href="/belajar-ai" />
           <div className="grid gap-6 md:grid-cols-2">
             {featuredArticles.map((article) => (
@@ -166,7 +142,9 @@ export default function HomePage() {
           </div>
         </section>
 
-        <Newsletter />
+        <div className="animate-rise-delay-6">
+          <Newsletter />
+        </div>
       </div>
     </div>
   );

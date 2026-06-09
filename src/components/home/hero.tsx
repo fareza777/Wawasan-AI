@@ -19,10 +19,10 @@ export function Hero() {
 
       <div className="relative mx-auto max-w-7xl px-4 pt-14 pb-12 sm:px-6 sm:pt-16 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
-          <h1 className="text-4xl font-semibold tracking-tighter text-balance sm:text-5xl md:text-6xl md:leading-[1.05]">
+          <h1 className="heading-display text-4xl text-balance sm:text-5xl md:text-6xl">
             {SITE_CONFIG.name}
           </h1>
-          <p className="mx-auto mt-4 max-w-xl text-lg text-muted-foreground text-balance leading-relaxed">
+          <p className="text-lead mx-auto mt-4 max-w-xl text-lg text-muted-foreground text-balance">
             {SITE_CONFIG.tagline}
           </p>
         </div>
